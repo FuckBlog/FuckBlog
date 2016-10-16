@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1024" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!--日后估计需要替换 先写一个demo-->
+    <meta name="description" content="FuckBlog项目的简单自我介绍" />
+    <meta name="author" content="Louis Song" />
+    <title>FuckBlog：关于我</title>
+
+    <link href="styles/FuckBlog.css" rel="stylesheet" />
+    <!--<link href="styles/aboutme.css" rel="stylesheet" />-->
+    <link rel="shortcut icon" href="favicon.png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+</head>
+
+<body class="impress-not-supported">
+
+<div class="fallback-message">
+    <p>如果再让本大王发现有人用IE访问本项目！统统死啦死啦滴</p>
+    <p>What are you fucking doing with IE to access my FuckBlog</p>
+    <p>请用现代浏览器，比如 <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> 。</p>
+</div>
+
+<div id="impress">
+
+    <div id="title" class="step" data-x="-1500" data-y="-1000" data-scale="4">
+        <span class="try">即刻尝试</span>
+        <h1>FuckBlog</h1>
+        <!--<span class="footnote">简约不简单</span>-->
+    </div>
+
+    <div id="description" class="step" data-x="0" data-y="-3000">
+        <p><span class="title">项目职责：</span></p>
+        <!--<p><span class="footnote"><font size="+3">项目由</font><span class="name">Emogen,Louis Song,Mr Wei</span>，共同打造</span></p>-->
+        <ul>
+            <li><b class="back">Emongo：负责后台</b></li>
+            <li><b class="front">Louis Song：负责前端</b></li>
+            <li><b class="db">Mr Wei：负责数据库及发布</b></li>
+        </ul>
+    </div>
+
+    <div id="big" class="step" data-x="4500" data-y="2100"  data-scale="6">
+        <p><big style="font-size:larger">模块 </big><big style="color:red">化</big> 组合</p>
+        <p><big style="font-size:larger">简约 </big><big style="color:red">不</big> 简单</p>
+    </div>
+    <div id="tiny" class="step" data-x="2825" data-y="2325" data-z="-3000"  data-scale="1">
+        <p>轻量级 <span style="font-size:smaller">搭建</span> 满足 <span class="thoughts">你的想法</span></p>
+    </div>
+
+    <div id="framework" class="step" data-x="50" data-y="3000" data-rotate="90" data-scale="3">
+        <p>前端架构：<span class="front">Bootstrap+Jquery</span></p>
+        <p>后端架构：<span class="backend">Python flask+Jinjia2</span></p>
+        <p>运行环境：<span class="work_environment">Ubuntu+Mysql</span></p>
+        <p>协作方式：<span class="cooperation">Github+Teambition</span></p>
+    </div>
+    <div id="feature" class="step" data-x="3100" data-y="100" data-rotate="180" data-scale="4">
+        <p>敏捷开发<b class="trans">快</b><p>
+        <p>容错机制<b class="trans">强</b></p>
+        <p>漏洞响应<b class="trans">准</b></p>
+        <p><span class="footnote">FuckBlog——专为Fuck而生</span></p>
+    </div>
+
+    <div id="join_us" class="step" data-x="-1600" data-y="1000" data-scale="4">
+        <p>您可以在<a href="https://www.github.com/songluyi/FuckBlog">Github</a>，<a href="https://twitter.com/luchuanjia">Twitter</a>或者<a href="https://github.com/SAMZONG">Teambition</a>上找到我们</p>
+    </div>
+    <div id="one-more-thing" class="step" data-x="2000" data-y="2100" data-z="0" data-scale="2">
+        <p>One More Thing</p>
+        <p>其实是一句话，想分享给您</p>
+    </div>
+    <div id="motto" class="step" data-x="2500" data-y="700" data-z= "5000" data-scale="5">
+        <p><b>人生苦短，我用Python</b></p>
+    </div>
+    <div id="overview" class="step" data-x="2500" data-y="800" data-scale="10">
+    </div>
+</div>
+<div class="hint">
+    <p>使用空格或者方向键来移动</p>
+</div>
+<script>
+    if ("ontouchstart" in document.documentElement) {
+        document.querySelector(".hint").innerHTML = "<p>向左或向右拖动屏幕来移动</p>";
+    }
+</script>
+<script src="scripts/impress.js"></script>
+<script>impress().init();</script>
+
+</body>
+</html>
