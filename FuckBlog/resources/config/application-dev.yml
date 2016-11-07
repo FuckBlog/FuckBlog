@@ -1,0 +1,90 @@
+# ===================================================================
+# ===================================================================
+# Spring Boot configuration for the "dev" profile.
+#
+# This configuration overrides the application.yml file.
+# ===================================================================
+
+# ===================================================================
+# Standard Spring Boot properties.
+# Full reference is available at:
+# http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+# ===================================================================
+
+spring:
+    devtools:
+        restart:
+            enabled: true
+        livereload:
+            enabled: false
+    datasource:
+#        url: jdbc:h2:file:./target/h2db/db/NimsOpt;DB_CLOSE_DELAY=-1
+#        name:
+#        username: NimsOpt
+#        password: jdbc:oracle:thin:@//192.168.15.94:1539/NRCRP2,jdbc:oracle:thin:@//192.168.15.94:1531/NRDEV
+        primary:
+            url: jdbc:oracle:thin:@//192.168.15.94:1531/NRDEV
+            username: apps
+            password: apps
+            driver-class-name: oracle.jdbc.OracleDriver
+        secondary:
+            url: jdbc:oracle:thin:@//192.168.15.251:1546/UCMDEV.nerin.com
+            username: WCC_OCS
+            password: welcome
+            driver-class-name: oracle.jdbc.OracleDriver
+        initial-size: 10
+        max-active: 50
+        max-idle: 20
+        min-idle: 20
+        max-wait: 10000
+        maximum-pool-size: 100
+#        test-while-idle: true
+#        validation-query: SELECT 1
+#        test-on-borrow: false
+        time-between-eviction-runs-millis: 18800
+        jdbc-interceptors: ConnectionState;SlowQueryReport(threshold=100) #过滤器，检查sql执行时间，如果小于threshold，则会报warn提醒
+    h2:
+        console:
+            enabled: true
+    jpa:
+        #使用oracle数据数据库
+        database-platform: org.hibernate.dialect.Oracle10gDialect
+        show_sql: true
+        properties:
+            hibernate.cache.use_second_level_cache: true
+            hibernate.cache.use_query_cache: false
+            hibernate.generate_statistics: true
+            hibernate.cache.region.factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
+    thymeleaf:
+        cache: false
+
+liquibase:
+    contexts: dev
+
+server:
+    port: 8080
+
+multipart:
+    maxFileSize: 50Mb
+    maxRequestSize: 50Mb
+
+# ===================================================================
+# Nerin specific properties
+# ===================================================================
+
+
+nerin:
+    cache: # Hibernate 2nd level cache, used by CacheConfiguration
+        timeToLiveSeconds: 3600
+        ehcache:
+            maxBytesLocalHeap: 16M
+    swagger: # swagger is enabled. It can be disabled by pasing 'no-swagger' profile at run time as well
+        enabled: true
+    nbcc:
+        wordFileUrl: /u510/nerin/plugin/word/
+        templateFileUrl: /u510/nerin/plugin/template/
+        templateWordFileUrl: /u510/nerin/plugin/templateWord/
+#        wordFileUrl: d:/u510/nerin/plugin/word/
+#        templateFileUrl: d:/u510/nerin/plugin/template/
+#        templateWordFileUrl: d:/u510/nerin/plugin/templateWord/
+

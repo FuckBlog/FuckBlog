@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <include file="src/main/resources/config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <!--<include file="src/main/resources/config/liquibase/changelog/20160523095621_changelog.xml" relativeToChangelogFile="false"/>-->
+    <!-- liquibase-add-changelog -  上线后如果有数据库变动,数据需要通过Include方式加入进来 -->
+
+</databaseChangeLog>

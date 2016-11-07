@@ -1,0 +1,14 @@
+id;name;description;url;icon;type;parent_id;created_by
+0;root;root;/root.html;root;front;0;system
+1;首页;瑞林首页;/index.html;home;front;0;system
+2;项目管理;项目管理页说明;/projects.html;projects;front;0;system
+3;项目计划;项目计划页说明;/projectsScheduler.html;projectsScheduler;front;2;system
+4;三级菜单;三级菜单说明;/third.html;third;front;3;system
+5;系统管理;系统管理说明;/pages/management/index.html;management;front;0;system
+100;仪表盘;仪表盘说明;/pages/management/dashboard.html;fa-dashboard;back;0;system
+101;系统管理;系统管理说明;/;fa-cog;back;0;system
+102;用户管理;用户管理说明;/pages/management/user.html;fa-user;back;101;system
+103;角色管理;角色管理;/pages/management/role.html;fa-group;back;101;system
+104;权限管理;权限管理;/pages/management/access.html;fa-th;back;101;system
+105;菜单管理;菜单管理;/pages/management/menu.html;fa-navicon;back;101;system
+106;日志查看;日志查看;/pages/management/log.html;fa-bug;back;101;system
