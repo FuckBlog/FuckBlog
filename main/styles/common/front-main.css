@@ -1,0 +1,86 @@
+.nav-scroll-tool {
+  line-height: 10px;
+}
+.navbar-brand > img {
+  height: 20px;
+}
+@media (min-width: 768px) {
+  .navbar-brand > img {
+    height: 26px;
+    margin-left: -20px;
+  }
+}
+.navbar-default {
+  background: #eee;
+  font-size: 20px;
+}
+.navbar-default .navbar-nav > li > a {
+  color: #1d5987;
+}
+.navbar-nav > li > a {
+  line-height: 30px;
+}
+.navbar-default .navbar-nav > li > a:active {
+  background: #1d5987;
+  color: #fff;
+}
+.navbar-default .navbar-nav > li > a:focus {
+  background: #1d5987;
+  color: #fff;
+}
+.navbar-default .navbar-nav > li > a:hover {
+  background: #1d5987;
+  color: #fff;
+}
+.navbar-default .navbar-nav > .open > a {
+  background: #1d5987;
+  color: #fff;
+}
+.navbar-default .navbar-nav > .open > a:active {
+  background: #1d5987;
+  color: #fff;
+}
+.navbar-default .navbar-nav > .open > a:focus {
+  background: #1d5987;
+  color: #fff;
+}
+.navbar-default .navbar-nav > .open > a:hover {
+  background: #1d5987;
+  color: #fff;
+}
+.placeholder {
+  border: 1px dotted black;
+  background: #e4f1fb;
+  margin: -10px;
+  margin-bottom: 40px;
+  height: 200px;
+  float: left;
+  width: 100%;
+}
+.panel {
+  float: left;
+  width: 100%;
+}
+@media (min-width: 960px) {
+  .col-lg-6 {
+    width: 50%;
+    float: left;
+  }
+}
+.pagecontainer {
+  padding: 20px;
+  padding-top: 40px;
+}
+.headerSpaces {
+  margin-top: 70px;
+}
+#loginPopup,
+#userProfile {
+  display: none;
+}
+@media (min-width: 768px) {
+  .loginnav {
+    margin-left: 40px;
+    margin-right: -40px;
+  }
+}
