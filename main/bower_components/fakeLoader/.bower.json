@@ -1,0 +1,37 @@
+{
+  "name": "fakeLoader",
+  "main": [
+    "fakeLoader.js",
+    "fakeLoader.css"
+  ],
+  "authors": [
+    "Joao Pereira <joaopereirawd@gmail.com>"
+  ],
+  "description": "fakeLoader.js is a lightweight jQuery plugin that helps you create an animated spinner with a fullscreen loading mask to simulate the page preloading effect.",
+  "keywords": [
+    "page preloading",
+    "fullscreen preloading",
+    "spinner",
+    "fullscreen spinner"
+  ],
+  "license": "MIT",
+  "homepage": "http://joaopereirawd.github.io/fakeLoader.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "Demo"
+  ],
+  "_release": "0e16f0de18",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "0e16f0de184f84fc7cceb4af984df3172423fb70"
+  },
+  "_source": "https://github.com/joaopereirawd/fakeLoader.js.git",
+  "_target": "*",
+  "_originalSource": "fakeloader",
+  "_direct": true
+}

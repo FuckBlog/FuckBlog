@@ -1,0 +1,37 @@
+{
+  "name": "jquery-iframe-auto-height",
+  "version": "2.0.0",
+  "description": "jQuery plugin to set the height of an iframe to its contents height",
+  "main": [
+    "dist/jquery-iframe-auto-height.js",
+    "vendor/jquery.browser.js"
+  ],
+  "author": {
+    "name": "Jesse House",
+    "email": "mail@jessehouse.com"
+  },
+  "repository": {
+    "url": "https://github.com/house9/jquery-iframe-auto-height",
+    "type": "git"
+  },
+  "license": "MIT",
+  "dependencies": {},
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "homepage": "https://github.com/house9/jquery-iframe-auto-height",
+  "_release": "2.0.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "2.0.0",
+    "commit": "5f818fc3396159df6c593b9cf554907a230c1b82"
+  },
+  "_source": "https://github.com/house9/jquery-iframe-auto-height.git",
+  "_target": "^2.0.0",
+  "_originalSource": "jquery-iframe-auto-height",
+  "_direct": true
+}
