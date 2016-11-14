@@ -17,6 +17,8 @@
 重构登陆页面 | Mr Wei | ![progress](http://progressed.io/bar/60) | **2** | 使用
 
 ##产品原型图
+**前端界面**
+![](http://www.songluyi.com/wp-content/uploads/2016/11/FuckBlog前端界面.png)
 **后台登陆：**
 ![](http://www.songluyi.com/wp-content/uploads/2016/10/QQ截图20161021151636.png)
 
