@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    {% block meta %}
+    <!--block meta-->
+    {% endblock %}
+    <title>{% block title %}?{% endblock %}-FuckBlog starting</title>
+    <!--注意一下这个路径在访问后会被定位为www路径-->
+    <link rel="stylesheet" href="/static/css/uikit.min.css">
+    <link rel="stylesheet" href="/static/css/uikit.gradient.min.css">
+    <link rel="stylesheet" href="/static/css/awesome.css" />
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/sha1.min.js"></script>
+    <script src="/static/js/uikit.min.js"></script>
+    <script src="/static/js/sticky.min.js"></script>
+    <script src="/static/js/vue.min.js"></script>
+    <script src="/static/js/awesome.js"></script>
+    {% block beforehead %}{% endblock %}
+
+</head>
+<body>
+    <nav class="uk-navbar uk-navbar-attached uk-margin-bottom">
+            <div class="uk-container uk-container-center">
+                <a href="/" class="uk-navbar-brand">FuckBlog</a>
+                <ul class="uk-navbar-nav">
+                    <li data-url="blogs"><a href="/"> <i class="uk-icon-home"></i>日志</a></li>
+                    <li><a target="_blank" href="http://www.songluyi.com/"><i class="uk-icon-book"></i> 教程</a></li>
+                    <li><a target="_blank" href="https://github.com/songluyi/FuckBlog"><i class="uk-icon-code"></i> 源码</a></li>
+                </ul>
+                <div class="uk-navbar-flip">
+                    <ul class="uk-navbar-nav">
+                    {% if user %}
+                        <li class="uk-parent" data-uk-dropdown>
+                            <a href="#0"><i class="uk-icon-user"></i>{{user.name}}</a>
+                            <div class="uk-dropdown uk-dropdown-navbar">
+                                <ul class="uk-nav uk-nav-navbar">
+                                    <li><a href="/signout"/><i class="uk-icon-sign-out"></i>登出</li>
+                                </ul>
+                            </div>
+                        </li>
+                    {% else %}
+                        <li><a href="/sign"><i class="uk-icon-sign-in"></i> 登陆</a></li>
+                        <li><a href="/register"><i class="uk-icon-edit"></i> 注册</a></li>
+                    {% endif %}
+                    </ul>
+                </div>
+            </div>
+    </nav>
+
+    <div class="uk-container uk-container-center">
+        <div class="uk-grid">
+            <!-- content -->
+            {% block content %}
+            {% endblock %}
+            <!-- // content -->
+        </div>
+    </div>
+<!--日后在考虑换样式 先跑通吧-->
+    <div class="uk-margin-large-top" style="background-color:#eee; border-top:1px solid #ccc;">
+        <div class="uk-container uk-container-center uk-text-center">
+            <div class="uk-panel uk-margin-top uk-margin-bottom">
+                <p>
+                    <a target="_blank" href="#" class="uk-icon-button uk-icon-weibo"></a>
+                    <a target="_blank" href="#" class="uk-icon-button uk-icon-github"></a>
+                    <a target="_blank" href="#" class="uk-icon-button uk-icon-linkedin-square"></a>
+                    <a target="_blank" href="#" class="uk-icon-button uk-icon-twitter"></a>
+
+                </p>
+                <p>Powered by <a href="#">This is FuckBlog</a>. Copyright &copy; 2017. [<a href="/manage/" target="_blank">Manage</a>]</p>
+                <p><a href="http://www.songluyi.com/" target="_blank">www.songluyi.com</a>. All rights reserved.</p>
+                <a target="_blank" href="#"><i class="uk-icon-html5" style="font-size:64px; color: #444;"></i></a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

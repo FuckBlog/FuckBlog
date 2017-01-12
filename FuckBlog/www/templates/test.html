@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>FuckBlog-Just one little test</title>
+</head>
+<body>
+        <h1>All users</h1>
+        {% for u in users %}
+        <p>{{u.name}} / {{u.email}}</p>
+        {% endfor %}
+</body>
+</html>

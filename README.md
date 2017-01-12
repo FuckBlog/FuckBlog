@@ -6,6 +6,7 @@
 [**一分钟带你了解FuckBlog**](http://songluyi.github.io/FuckBlog)
 
 #开发环境
+
 ![](http://www.songluyi.com/wp-content/uploads/2016/10/ProjectSetting.png)
 
 ##进度表
