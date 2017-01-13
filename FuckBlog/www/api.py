@@ -25,7 +25,7 @@ code is far away from bugs with the god animal protecting
 """
 import asyncio
 from www.models import User,Comment,Blogs,next_id
-from www.webframe import get,post
+from www.webfram import get,post
 import time
 import re,json
 from www.errors import APIError, APIValueError, APIPermissionError
