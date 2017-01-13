@@ -24,11 +24,11 @@ code is far away from bugs with the god animal protecting
 -------------------------------------------------------------------------------
 """
 
-from www.orm import Model, TextField, BooleanField, IntegerField, FloatField, StringField
+from www.webframe.orm import Model, TextField, BooleanField, IntegerField, FloatField, StringField
 
-import time,uuid,random
+import time, uuid, random
 def next_id():
-    return '%s%d' % (int(time.time() * 1000),random.randint(0000,10000))
+    return '%s%d' % (int(time.time() * 1000), random.randint(0000,10000))
 
 class User(Model):
     # 这个名字要和数据库字段建立的一毛一样
