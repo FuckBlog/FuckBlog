@@ -16,11 +16,11 @@ import asyncio, json, os, time
 from datetime import datetime
 from aiohttp import web
 # 首要解决的就是这个parse函数自解析
-from www.webframe.factory import logger_factory,data_factory,response_factory
+from www.webframe.factory import logger_factory,data_factory,response_factory, auth_factory
 import www.webframe.orm
 from www.base import add_routes, add_static
 from jinja2 import Environment, FileSystemLoader
-from www.login_data_transfer import auth_factory
+
 def init_jinjia2(app, **kw):
     logging.info('init jinja2 template...')
     options=dict(
@@ -62,7 +62,7 @@ def datetime_filter(t):
 def fuck_init(loop):
     yield from www.webframe.orm.create_pool(loop=loop,host='localhost', port=3308, user='sly', password='070801382',db='fuckblog')
     app = web.Application(loop=loop, middlewares=[
-        logger_factory, response_factory, data_factory, auth_factory
+        logger_factory, response_factory, data_factory,
     ])
     init_jinjia2(app, filters=dict(datetime=datetime_filter))
     add_routes(app,'api')

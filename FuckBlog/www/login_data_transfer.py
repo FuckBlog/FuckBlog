@@ -25,7 +25,6 @@ code is far away from bugs with the god Animal protecting
 """
 from www.config import configs
 import hashlib
-
 import asyncio
 import time
 from www.models import User
@@ -85,19 +84,5 @@ def text2html(text):
     lines = map(lambda s: '<p>%s</p>' % s.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;'), filter(lambda s: s.strip() != '', text.split('\n')))
     return ''.join(lines)
 
-@asyncio.coroutine
-def auth_factory(app, handler):
-    @asyncio.coroutine
-    def auth(request):
-        # 警告 这里request method 可能需要加__method__
-        logging.info('check user: %s:%s'% (request.method, request.path))
-        request.__user__=None
-        cookie_str=request.cookies.get(COOKIE_NAME)
-        if cookie_str:
-            user=yield from cookie2user(cookie_str)
-            if user:
-                logging.info('set current user:%s' %user)
-                request.__user__=user
-            return (yield from handler(request))
-    return auth
+
 

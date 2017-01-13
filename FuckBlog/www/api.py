@@ -56,7 +56,7 @@ def index():
 def api_get_users():
     users = yield from User.find_all(orderBy='created_time desc')
     for u in users:
-        u.passwd = '******'
+        u.password = '******'
     return dict(users=users)
 
 _re_email=re.compile(r'^[a-z0-9\.\-\_]+\@[a-z0-9\-\_]+(\.[a-z0-9\-\_]+){1,4}$')
@@ -97,6 +97,7 @@ def sign():
     return{
         '__template__':'sign.html'
     }
+
 @asyncio.coroutine
 @post('/api/authenticate')
 def authenticate(*, email, password):
