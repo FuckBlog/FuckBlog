@@ -6,31 +6,31 @@
     <link rel="stylesheet" href="/static/css/jquery.dataTables.min.css">
     <script src="/static/js/jquery.min.js"></script>
     <script src="/static/js/jquery.dataTables.min.js"></script>
+{#    <script src="/static/js/test.js"></script>#}
     <script>
+
+
         $(document).ready(function() {
-                $('#example').dataTable( {
-                    "ajax": {
-                        "url": "/api/users",
-                        //默认为data，这里定义为demo
-                        "dataSrc": "",
-                        "columns": [
-                            { "data": "name" },
-                            { "data": "email" },
-                            { "data": "created_time" },
-                            { "data": "admin_flag" }
-                            ]
-                    }
-                } );
-            } );
-    </script>
-    <script>
+
+            $('#example').dataTable({
+                "ajax": '/api/users',
+                "columns": [
+                    {data:'name'},
+                    {data:'email'},
+                    {data:'created_time'},
+                    {data:'admin_flag'},
+                    {data:'image'},
+                    {data:'id'},
+                    {data:'password'}
+                ]
+            })
+        });
+
 
     </script>
 </head>
 <body>
 
-{#    <input id="haha" type="submit" value="查看所有用户">#}
-{#    <p id="heiheihei"></p>#}
 <table id="example" class="display" cellspacing="0" width="100%">
         <thead>
             <tr>
@@ -38,17 +38,11 @@
                 <th>邮箱</th>
                 <th>注册时间</th>
                 <th>是否admin</th>
+                <th>图片</th>
+                <th>id</th>
+                <th>密码</th>
             </tr>
         </thead>
-
-        <tfoot>
-            <tr>
-                <th>名字</th>
-                <th>邮箱</th>
-                <th>注册时间</th>
-                <th>是否admin</th>
-            </tr>
-        </tfoot>
     </table>
 
 </body>

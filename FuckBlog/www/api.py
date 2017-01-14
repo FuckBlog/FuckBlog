@@ -56,11 +56,11 @@ def test():
         '__template__':'test.html'
     }
 # 查一下 这个屌丝程序为何老是需要request
+
 @asyncio.coroutine
 @get('/api/users')
 def api_get_users():
     users = yield from User.find_all(orderBy='created_time desc')
-
     for u in users:
         u.password = '******'
     return dict(data=users)
