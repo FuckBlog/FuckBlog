@@ -3,11 +3,53 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>FuckBlog-Just one little test</title>
+    <link rel="stylesheet" href="/static/css/jquery.dataTables.min.css">
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+                $('#example').dataTable( {
+                    "ajax": {
+                        "url": "/api/users",
+                        //默认为data，这里定义为demo
+                        "dataSrc": "",
+                        "columns": [
+                            { "data": "name" },
+                            { "data": "email" },
+                            { "data": "created_time" },
+                            { "data": "admin_flag" }
+                            ]
+                    }
+                } );
+            } );
+    </script>
+    <script>
+
+    </script>
 </head>
 <body>
-        <h1>All users</h1>
-        {% for u in users %}
-        <p>{{u.name}} / {{u.email}}</p>
-        {% endfor %}
+
+{#    <input id="haha" type="submit" value="查看所有用户">#}
+{#    <p id="heiheihei"></p>#}
+<table id="example" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>名字</th>
+                <th>邮箱</th>
+                <th>注册时间</th>
+                <th>是否admin</th>
+            </tr>
+        </thead>
+
+        <tfoot>
+            <tr>
+                <th>名字</th>
+                <th>邮箱</th>
+                <th>注册时间</th>
+                <th>是否admin</th>
+            </tr>
+        </tfoot>
+    </table>
+
 </body>
 </html>

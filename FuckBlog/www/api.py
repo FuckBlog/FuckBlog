@@ -50,18 +50,25 @@ def index():
         '__template__': 'blogs.html',
         'blogs': blogs,
     }
+@get('/test.html')
+def test():
+    return {
+        '__template__':'test.html'
+    }
 # 查一下 这个屌丝程序为何老是需要request
 @asyncio.coroutine
 @get('/api/users')
 def api_get_users():
     users = yield from User.find_all(orderBy='created_time desc')
+
     for u in users:
         u.password = '******'
-    return dict(users=users)
+    return dict(data=users)
 
 _re_email=re.compile(r'^[a-z0-9\.\-\_]+\@[a-z0-9\-\_]+(\.[a-z0-9\-\_]+){1,4}$')
 _re_sha1=re.compile(r'^[0-9a-f]{40}$')
 
+# 这里说明 前后端验证都很重要
 @post('/api/users')
 def api_register_user(*, email, name, password):
     if not name or not name.strip():
