@@ -32,6 +32,7 @@ import logging
 from www.errors import APIError,APIPermissionError,APIValueError
 COOKIE_NAME = 'FuckYou'
 _COOKIE_KEY = configs.session.secret
+
 def user2cookie(user,max_age):
     expires=str(int(time.time()+ max_age))
     s='%s-%s-%s-%s' %(user.id, user.password,expires,_COOKIE_KEY)
@@ -58,7 +59,7 @@ def cookie2user(cookie_str):
         if sha1 != hashlib.sha1(s.encode('utf-8')).hexdigest():
             logging.info('invalid sha1')
             return None
-        # 慢着 我为何不用md5存储 脱裤岂不是对用户不负责？
+        # 密码已经特殊存储过，这里仍要替换转出
         user.password='******'
         return user
     except Exception as e:
@@ -67,7 +68,7 @@ def cookie2user(cookie_str):
 
 def check_user_admin_flag(request):
     if request.__user__ is None or not request.__user__.admin_flag:
-        raise APIPermissionError
+        raise APIPermissionError('admin only')
 
 def get_page_index(page_str):
     p=1

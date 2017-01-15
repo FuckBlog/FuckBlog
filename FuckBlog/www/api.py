@@ -26,13 +26,15 @@ code is far away from bugs with the god animal protecting
 import asyncio
 from www.models import User,Comment,Blogs,next_id
 from www.base import get,post
+from www.base import Page
 import time
 import re,json
-from www.errors import APIError, APIValueError, APIPermissionError
+from www.errors import APIError, APIValueError
 import hashlib
 from aiohttp import  web
 from www.config import configs
-from www.login_data_transfer import user2cookie,cookie2user, text2html, check_user_admin_flag
+from www.login_data_transfer import user2cookie, text2html, check_user_admin_flag, get_page_index
+
 import www.markdown2
 import logging
 COOKIE_NAME = 'FuckYou'
@@ -41,6 +43,7 @@ _COOKIE_KEY = configs.session.secret
 @get('/')
 def index():
     summary = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+    # 这里是先伪造数据
     blogs = [
         Blogs(id='1', name='Test Blog', summary=summary, created_at=time.time()-120),
         Blogs(id='2', name='Something New', summary=summary, created_at=time.time()-3600),
@@ -181,3 +184,14 @@ def api_create_blog(request,* ,blog_title, summary, content):
     blog = Blogs(user_id=request.__user__.id, user_name=request.__user__.name,user_image=request.__user__.image, blog_title=blog_title.strip(), summary=summary.strip(), content=content.strip())
     yield from blog.save()
     return blog
+
+@get('/api/blogs')
+def api_blogs(*, page='1'):
+    # 注意 一般传输过程中 需要将str 的字符串改为int
+    page_index=get_page_index(page)
+    article_nums=yield from Blogs.findNumber('count(id)')
+    p=Page(article_count=article_nums, index=page_index)
+    if article_nums==0:
+        return dict(page=p, blogs=())
+    blogs=yield from Blogs.find_all(OrderBy='created_at desc', limit=(p.offset, p.limit))
+    return dict(page=p, blogs=blogs)

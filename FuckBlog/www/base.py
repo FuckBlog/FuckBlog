@@ -127,3 +127,22 @@ def add_routes(app, module_name):
         # else:
         #     print('不能加载动态路由表')
 
+class Page():
+    # 参数分别是          文章总数    当前页  一页显示文章数量
+    def __init__(self,article_count, index=1, page_size=10):
+        # 文章数量是有可能为零的 做一下备注
+        if article_count>0:
+            self.last_page=article_count // page_size +(1 if article_count % page_size >0 else 0)# 记录最后一页 你可以理解为总页数
+            self.index=index  # 当前页
+            self.offset=page_size*(index-1) # 已经显示了多少文章，用于数据库查询偏移
+            self.limit=page_size
+        else:
+            self.last_page=1
+            self.article_count=0
+            self.index=1
+            self.offset=0
+            self.limit=10
+    def __str__(self):
+        # 重写显示 为了方便我们调试
+        return  ' last_page: %s, index: %s, page_size: %s, offset: %s, limit: %s' % ( self.last_page, self.index, self.limit, self.offset, self.limit)
+    __repr__=__str__

@@ -62,7 +62,7 @@ def datetime_filter(t):
 def fuck_init(loop):
     yield from www.webframe.orm.create_pool(loop=loop,host='localhost', port=3308, user='sly', password='070801382',db='fuckblog')
     app = web.Application(loop=loop, middlewares=[
-        logger_factory, response_factory, data_factory,
+        logger_factory, response_factory, data_factory,auth_factory
     ])
     init_jinjia2(app, filters=dict(datetime=datetime_filter))
     add_routes(app,'api')

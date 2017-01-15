@@ -106,7 +106,7 @@ def response_factory(app, handler):
                 return resp
             else:
                 # 如果用jinjia2 渲染，则绑定已经验证过的用户
-                # r['__user__'] = request.__user__
+                r['__user__'] = request.__user__
                 resp = web.Response(body=app['__templating__'].get_template(template).render(**r).encode('utf-8'))
                 resp.content_type='text/html;charset=utf-8'
                 return resp
@@ -120,20 +120,25 @@ def response_factory(app, handler):
         resp.content_type='text/plain;charset=utf-8'
         return resp
     return response
-
+#
 # 警告 这个factory是不可用的 需要完善
 @asyncio.coroutine
 def auth_factory(app, handler):
     @asyncio.coroutine
     def auth(request):
-        # 警告 这里request method 可能需要加__method__
-        logging.info('check user: %s:%s'% (request.method, request.path))
-        request.__user__=None
-        cookie_str=request.cookies.get(COOKIE_NAME)
-        if cookie_str:
-            user=yield from cookie2user(cookie_str)
-            if user:
-                logging.info('set current user:%s' %user)
-                request.__user__=user
-            return (yield from handler(request))
+            # 警告 这里request method 可能需要加__method__
+            logging.info('check user: %s:%s'% (request.method, request.path))
+            request.__user__=None
+            cookie_str=request.cookies.get(COOKIE_NAME)
+            print(cookie_str)
+            if cookie_str:
+                user=yield from cookie2user(cookie_str)
+                if user is not None:
+                    logging.info('set current user:%s' %user)
+                    request.__user__=user
+            return (yield from  handler(request))
     return auth
+
+
+
+
