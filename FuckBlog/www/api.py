@@ -53,6 +53,11 @@ def index():
         '__template__': 'blogs.html',
         'blogs': blogs,
     }
+@get('/index.html')
+def index_test():
+    return {
+        '__template__':'index.html'
+    }
 @get('/test.html')
 def test():
     return {
