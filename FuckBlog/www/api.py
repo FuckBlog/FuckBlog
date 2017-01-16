@@ -162,6 +162,11 @@ def get_blog(id):
         'blog':blog,
         'comments':comments
     }
+@get('/manage')
+def manage_admin():
+    return {
+        '__template__':'/index_test.html'
+    }
 
 @get('/manage/blogs/create')
 def manage_create_blog():
