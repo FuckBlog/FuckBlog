@@ -167,8 +167,12 @@ body {
   overflow-y: scroll;
 }
 .login-panel {
-  margin-top: 25%;
+  margin-top: 10%;
 }
+.admin-login{
+  margin-top:20%;
+}
+
 .flot-chart {
   display: block;
   height: 400px;

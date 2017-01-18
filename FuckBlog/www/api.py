@@ -107,12 +107,16 @@ def register():
         '__template__':'register.html'
     }
 
+@get('/login')
+def login():
+    return{
+        '__template__':'login.html'
+    }
 @get('/sign')
 def sign():
-    return{
+    return {
         '__template__':'sign.html'
     }
-
 @asyncio.coroutine
 @post('/api/authenticate')
 def authenticate(*, email, password):
