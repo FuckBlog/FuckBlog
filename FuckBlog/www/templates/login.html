@@ -105,7 +105,7 @@
         function check_pwd() {
             var password=get('password').value;
             if (password==""){
-                get('password-notice').innerHTML=' 密码也不能为空！ ';
+                get('password-notice').innerHTML=' 密码不能为空 ';
                 get('password-notice').style.color='red';
             }
             else{
@@ -133,7 +133,7 @@
                             if (JSON.parse(resp)["email"]) {
 {#                                alert('登陆成功');#}
 {#                                这里好奇怪用location.assign 跳转不了 我他妈也是日了狗#}
-                                window.location="/"
+                                window.location="/manage"
                             }
                             else {
                                 var error_message=JSON.parse(resp)["message"];

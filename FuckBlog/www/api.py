@@ -64,7 +64,11 @@ def test():
         '__template__':'test.html'
     }
 # 查一下 这个屌丝程序为何老是需要request
-
+@get('/manage/{name}')
+def admin_page(name):
+    return {
+        "__template__":name
+    }
 @asyncio.coroutine
 @get('/api/users')
 def api_get_users():
@@ -72,6 +76,12 @@ def api_get_users():
     for u in users:
         u.password = '******'
     return dict(data=users)
+
+@get('/api/{tag}')
+def get_tag_article(*, tag):
+    blog=yield from Blogs.find_all('tag=?', [tag])
+    return blog
+
 
 _re_email=re.compile(r'^[a-z0-9\.\-\_]+\@[a-z0-9\-\_]+(\.[a-z0-9\-\_]+){1,4}$')
 _re_sha1=re.compile(r'^[0-9a-f]{40}$')
@@ -117,6 +127,7 @@ def sign():
     return {
         '__template__':'sign.html'
     }
+
 @asyncio.coroutine
 @post('/api/authenticate')
 def authenticate(*, email, password):
