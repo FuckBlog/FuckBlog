@@ -41,6 +41,8 @@
     <script src="/static/js/sb-admin-2.js"></script>
 
     <script src="/static/js/sha1.min.js"></script>
+
+
 </head>
 
 <body>
@@ -54,17 +56,19 @@
                 <div class="admin-login" align="center" >
                     <img src="/static/images/FuckBlog.png" class="img-responsive" alt="后台登陆logo" >
                 </div>
+
                 <div class="alert alert-danger" id="warning-block">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
                 </div>
+
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title" align="center">欢迎您的登陆</h3>
                     </div>
                     <div class="panel-body">
-                        <form role="form" onsubmit="post_login()">
+                        <form role="form" target="hide_iframe" >
                             <fieldset>
-                                <div class="form-group">
+                                <div class="form-group" >
                                     <input id="email" class="form-control" onblur='check_email();' placeholder="E-mail" name="email" type="email" autofocus><span id='email-notice'></span>
                                 </div>
                                 <div class="form-group">
@@ -76,9 +80,11 @@
                                     </label>
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
-                                <input type="submit" id="login" class="btn btn-lg btn-success btn-block" value="登陆">
+                                <input type="submit" onclick="post_login()" id="login" class="btn btn-lg btn-success btn-block" value="登陆">
                             </fieldset>
                         </form>
+{#                        真他妈机智 自从有了这个iframe 就可以不用刷新本页面了#}
+                        <iframe id="hide_iframe" name="hide_iframe" style="display:none;"></iframe>
                     </div>
                 </div>
             </div>
@@ -150,11 +156,19 @@
 {#                                console.log(s);#}
                                 $('#warning-block').show();
 {#                                get('#warning-message').innerHTML = '这只是做一个测试而已';#}
-                                location.assign('/login')
+{#                                location.assign('/login')#}
                             }
+
                         }
+
                     });
+
         }
+            else{
+                    console.log('kengbaba');
+                    $('#login').className="btn btn-primary btn-lg";
+{#                    window.location="/login"#}
+                }
         }
     </script>
     <!-- jQuery -->
