@@ -37,5 +37,3 @@ configs = {
         'secret': 'fuck_this_shit_blog'
     }
 }
-
-print(type(configs))

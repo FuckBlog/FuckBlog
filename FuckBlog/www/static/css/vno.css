@@ -441,9 +441,9 @@ hr {
   background-image: linear-gradient(140deg,rgba(174, 80, 4, 0.6) 20%, rgba(74, 34, 2, 0.8)); }
 
 .cover-slate {
-  background-color: rgba(0, 0, 0, 0.01);
-  background-image: -webkit-linear-gradient(-410deg, rgba(61, 66, 96, 0.65) 20%, rgba(21, 23, 34, 0.3));
-  background-image: linear-gradient(140deg,rgba(61, 66, 96, 0.65) 20%, rgba(21, 23, 34, 0.3)); }
+  background-color: rgba(0, 0, 0, 0.25);
+  background-image: -webkit-linear-gradient(-410deg, rgba(61, 66, 96, 0.65) 30%, rgba(21, 23, 34, 0.3));
+  background-image: linear-gradient(140deg,rgba(61, 66, 96, 0.65) 30%, rgba(21, 23, 34, 0.3)); }
 
 .cover-disabled {
   background: none; }

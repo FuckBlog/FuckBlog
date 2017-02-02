@@ -41,7 +41,7 @@ class User(Model):
     admin_flag=BooleanField()
     image=StringField()
     created_time=FloatField(default=time.time)
-
+# 这里注意一下，如果没有在Blogs类里面加入字段，即使数据库有
 class Blogs(Model):
     __table__='blogs'
     id=StringField(primary_key=True, default=next_id)
@@ -52,6 +52,7 @@ class Blogs(Model):
     summary=StringField()
     content=TextField()
     created_time=FloatField(default=time.time)
+    tag=StringField()
 
 class Comment(Model):
     __table__='comments'

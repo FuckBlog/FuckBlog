@@ -291,7 +291,9 @@ class Model(dict,metaclass=ModelMetaclass):
                 raise ValueError('Invalid limit value : %s '%str(limit))
 
         rs = yield from select(' '.join(sql),args)
+        print(rs)
         return [cls(**r) for r in rs]
+
     @classmethod
     @asyncio.coroutine
     def findNumber(cls, selectField, where=None, args=None):
