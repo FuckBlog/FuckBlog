@@ -27,8 +27,9 @@ code is far away from bugs with the god animal protecting
 from www.webframe.orm import Model, TextField, BooleanField, IntegerField, FloatField, StringField
 
 import time, uuid, random
+
 def next_id():
-    return '%s%d' % (int(time.time() * 1000), random.randint(0000,10000))
+    return '%s%d' % (int(time.time() * 1000), random.randint(00000,10000))
 
 class User(Model):
     # 这个名字要和数据库字段建立的一毛一样
@@ -38,10 +39,10 @@ class User(Model):
     # password 一律sha 加盐处理 后来发现实现上面的确是这样
     password=StringField()
     email=StringField()
-    admin_flag=BooleanField()
+    admin_flag=BooleanField(default=False)
     image=StringField()
     created_time=FloatField(default=time.time)
-# 这里注意一下，如果没有在Blogs类里面加入字段，即使数据库有
+# 这里注意一下，如果没有在Blogs类里面加入字段，即使数据库有也将无法操作
 class Blogs(Model):
     __table__='blogs'
     id=StringField(primary_key=True, default=next_id)

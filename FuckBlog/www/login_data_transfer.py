@@ -69,6 +69,8 @@ def cookie2user(cookie_str):
 def check_user_admin_flag(request):
     if request.__user__ is None or not request.__user__.admin_flag:
         raise APIPermissionError('admin only')
+    else:
+        return True
 
 def get_page_index(page_str):
     p=1
@@ -82,8 +84,14 @@ def get_page_index(page_str):
 
 def text2html(text):
     text=str(text)
-    lines = map(lambda s: '<p>%s</p>' % s.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;'), filter(lambda s: s.strip() != '', text.split('\n')))
-    return ''.join(lines)
+    # lines = map(lambda s: '<p>%s</p>' % s.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;'), filter(lambda s: s.strip() != '', text.split('\n')))
+    # 为了 配合我的评论也支持md 我去掉了<p></p>否则md 无法正常解析
+    # lines = map(lambda s: '%s' % s.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;'),
+    #             filter(lambda s: s.strip() != '', text.split('\n')))
+    lines = map(lambda s: '%s' % s.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;'),
+                filter(lambda s: s.strip() != '', text.split('\n')))
+    # 我需要换行 来支持我的评论md 功能 原先设计就是一傻逼
+    return '\n'.join(lines)
 
 
 

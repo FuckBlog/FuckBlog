@@ -6,19 +6,27 @@
         <!-- Bootstrap Core CSS -->
     <link rel="shortcut icon" href="/static/images/fuck_favicon.ico">
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="/static/css/vno.css">
     <link rel="stylesheet" href="/static/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/static/css/tomorrow.css">
+    <link rel="stylesheet" href="/static/css/vno.css">
+     <!--toastr CSS -->
+    <link rel="stylesheet" href="/static/css/toastr.min.css">
+
     <script src="/static/js/jquery.min.js"></script>
-    <script src="/static/js/jquery.dataTables.min.js"></script>
+
+    <script src="/static/js/base64.js"></script>
     <script src="/static/js/index.js"></script>
-    <script type="text/javascript" src="/static/js/main.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/toastr.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.reveal.js"></script>
+    <script src="/static/js/sha1.min.js"></script>
+    <script src="/static/js/fuckcomt.js"></script>
+
 
 </head>
 <body>
 
-<header class="panel-cover  panel-cover--collapsed" style="background-image: url('/static/images/background-cover2.jpg')">
+<header id='left-body' class="panel-cover  panel-cover--collapsed" style="background-image: url('/static/images/background-cover2.jpg')">
+{#<header id='left-body' class="panel-cover  panel-cover--collapsed">#}
   <div class="panel-main">
 
     <div class="panel-main__inner panel-inverted">
@@ -37,7 +45,7 @@
           <div>
             <nav class="cover-navigation cover-navigation--primary">
               <ul class="navigation">
-                <li class="navigation__item"><a href="/blog" title="访问博客" class="blog-button">博客</a></li>
+                <li class="navigation__item"><a href="/index.html" title="访问博客" class="blog-button">博客</a></li>
 
                   <li class="navigation__item"><a href="http://project.onevcat.com" target="_blank" title="我的项目">项目</a></li>
 
@@ -126,12 +134,186 @@
 
 
 </header>
+<a href="https://github.com/FuckBlog" target="_blank"><img style="position: absolute; top: 0; right: 0; border: 0;" src="/static/images/github.png" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
 <div class="col-md-4">
 </div>
-<div class="col-md-8" id="article_list">
-    
+
+<div class="col-md-7 "  style="top: 50px; left: 35px; border: 0; "  id="article_list" >
+    <ul id="nav-bar" class="nav nav-pills" >
+      <li role="presentation" class="active"><a href="/index.html">我的首页</a></li>
+    </ul>
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h3 class="modal-title myModalLabel" id="myModalLabel">注册新用户</h3>
+          </div>
+          <div class="modal-body">
+            <form role="form" target="hide_iframe" >
+                 <div class="alert alert-danger myregalert" id="warning-block" style="display: none">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                </div>
+                 <div>
+					<input class="myinput form-control" onblur="check_reg(this)" id="user_name" type="text" name="user_name" placeholder="用户名" tips="请输入一个 2-14 位的用户名" errortips="用户名长度不符合" >
+				</div>
+                  <div>
+					<input class="myinput form-control"  onblur="check_reg(this)" id="email" type="text" placeholder="邮箱" name="email" tips="请输入你常用的电子邮箱作为你的账号"  errortips="邮箱格式不正确">
+				</div>
+                <div>
+					<input class="myinput form-control" onblur="check_reg(this)" id="password1" type="password" name="password" placeholder="密码" tips="请输入 6-16 个字符,区分大小写" errortips="密码不符合规则">
+				</div>
+                  <div>
+					<input class="myinput form-control" onblur="check_pwd(this)" id="password2" type="password" name="password" placeholder="重复密码" tips="请输入 6-16 个字符,区分大小写" errortips="密码不符合规则">
+				</div>
+            </form>
+            <iframe id="hide_iframe" name="hide_iframe" style="display:none;"></iframe>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" onclick="fuck_register()" class="regbtn newbtn-large newbtn-blue newbtn-block">注册</button>
+{#              <button type="button" class="clearbtn btn-danger">取消</button>#}
+          </div>
+        </div>
+    </div>
+    </div>
 </div>
 
 
+
+
+
+
+
+{#<script type="text/javascript">#}
+{#        function loadScript(url, callback)#}
+{#        {#}
+{#            // Adding the script tag to the head as suggested before#}
+{#            var head = document.getElementsByTagName('head')[0];#}
+{#            var script = document.createElement('script');#}
+{#            script.type = 'text/javascript';#}
+{#            script.src = url;#}
+{##}
+{#            // Then bind the event to the callback function.#}
+{#            // There are several events for cross browser compatibility.#}
+{#            script.onreadystatechange = callback;#}
+{#            script.onload = callback;#}
+{##}
+{#            // Fire the loading#}
+{#            head.appendChild(script);#}
+{#        }#}
+{#        var myPrettyCode = function() {#}
+{#                    alert('heihei');#}
+{##}
+{#              start().initArticleData();#}
+{#           // Here, do what ever you want#}
+{#        };#}
+{#         toastr.options = {#}
+{#          "closeButton": true,#}
+{#          "debug": false,#}
+{#          "newestOnTop": false,#}
+{#          "progressBar": true,#}
+{#          "positionClass": "toast-top-center",// 这个position 他喵的用center 结果放在左下角 我也是醉了 后来发现原先他的css比较老 自己加也行#}
+{#          "preventDuplicates": false,#}
+{#          "onclick": null,#}
+{#          "showDuration": "300",#}
+{#          "hideDuration": "1000",#}
+{#          "timeOut": "3000",#}
+{#          "extendedTimeOut": "1000",#}
+{#          "showEasing": "swing",#}
+{#          "hideEasing": "linear",#}
+{#          "showMethod": "fadeIn",#}
+{#          "hideMethod": "fadeOut"#}
+{#        };#}
+{#    $('#warning-block').hide();#}
+{#    function get(id) {#}
+{#            return document.getElementById(id);#}
+{#        }#}
+{#    function getUrlVars()#}
+{#        {#}
+{#            var vars = [], hash;#}
+{#            var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');#}
+{#            for(var i = 0; i < hashes.length; i++)#}
+{#            {#}
+{#                hash = hashes[i].split('=');#}
+{#                vars.push(hash[0]);#}
+{#                vars[hash[0]] = hash[1];#}
+{#            }#}
+{#            return vars;#}
+{#        }#}
+               {# 我之所以在此写js 是因为当时我发现写在index.js 无法被加载 我当时认为
+{#                是因为js 单线程运行 无法调用的结果 虽然我个人觉得写在首页 真他妈的丑#}
+{#   function post_comment() {#}
+{#        var comment=document.getElementById('comment').value;#}
+{#        var item_id=getUrlVars()['item'];#}
+{#        console.log(typeof comment);#}
+       {# 我扔给后端做验证了 #}
+{#        if (comment.length==0){#}
+{#            alert('评论不能为空')#}
+{#        }#}
+{#        var data={content:comment};#}
+{##}
+{#        query_post_cmd='/api/blogs/'+item_id+'/comment';#}
+{#        $.ajax({#}
+{#            method:'post',#}
+{#            url:query_post_cmd,#}
+{#            dataType:'text',#}
+{#            data:data,#}
+{#            success:function (resp) {#}
+{#                if (JSON.parse(resp)['status']){#}
+{#                    toastr["success"]("评论成功");#}
+{#                    loadScript("/static/js/index.js", myPrettyCode);#}
+{##}
+{#                }#}
+{#                else if (JSON.parse(resp)['message']){#}
+{#                    toastr["error"](JSON.parse(resp)['message'])#}
+{#                }#}
+{#            }#}
+{#        })#}
+{#    }#}
+           {# 2017.2.14 吃晚饭的时候我发现 我仅仅过滤了 评论 而用户名也会成为
+{#            hack xss 胡乱弹框的场地，因此我认为 设定三道防线： 1. 注册时候 检测特殊字符#}
+{#            2. 后台过滤 3.前端js 再过滤 （好吧 实际上除了第一个其他两个都蛮靠谱的）#}
+{#    function check_reg(object) {#}
+{#        var former_str=object.getAttribute("placeholder");#}
+{#        $(':password').keypress(function(e) {#}
+{#            var s = String.fromCharCode( e.which );#}
+{#            if ( s.toUpperCase() === s && s.toLowerCase() !== s && !e.shiftKey ) {#}
+{#        alert('caps is on');#}
+{#            get("warning-block").innerHTML=' 大写按钮已经打开 ';#}
+{#             }#}
+{#            });#}
+{#        if (object.value.length==0){#}
+{#            get("warning-block").innerHTML=former_str+'不得为空';#}
+{#            $('#warning-block').show();#}
+{##}
+{#        }#}
+{#        //我他妈也是醉了 0<object.value.length<3 这样写居然是或运算 傻逼玩儿 js 你咋不上天呢#}
+{#        else if(object.value.length<3){#}
+{#            get("warning-block").innerHTML=former_str+'不小于3';#}
+{#            $('#warning-block').show();#}
+{##}
+{#        }#}
+{#        else if(object.value.length>3){#}
+{#            $('#warning-block').hide()#}
+{#        }#}
+{##}
+{#    }#}
+{#    function check_pwd(object) {#}
+{#        if (get("password1").value!=object.value){#}
+{#            get("warning-block").innerHTML='两次密码不一致';#}
+{##}
+{#        }#}
+{##}
+{##}
+{##}
+{#    }#}
+{##}
+{#    function fuck_register() {#}
+{##}
+{#    }#}
+{#</script>#}
+
 </body>
+
 </html>

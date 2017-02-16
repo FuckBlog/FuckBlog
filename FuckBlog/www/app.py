@@ -21,6 +21,7 @@ import www.webframe.orm
 from www.base import add_routes, add_static
 from jinja2 import Environment, FileSystemLoader
 
+# 注意：这里jinjia的模板做了一个渲染映射 那么我
 def init_jinjia2(app, **kw):
     logging.info('init jinja2 template...')
     options=dict(
@@ -42,6 +43,20 @@ def init_jinjia2(app, **kw):
             for name, f in filters.items():
                 env.filters[name]=f
         app['__templating__']= env
+
+
+# def replace_jinja(app,**kw):
+#     path=kw.get('path',None)
+#     if path is None:
+#         # 以下代码如果只是将路径指向templates的绝对路径的话 作者你过来我保证不打死你
+#         path = os.path.join(os.path.dirname(os.path.abspath(__file__)),'templates')
+#         logging.info('The jinjia template is set here: %s'% path)
+#         env = Environment(loader=FileSystemLoader(path))
+#         filters=kw.get('filters', None)
+#         if filters is not None:
+#             for name, f in filters.items():
+#                 env.filters[name]=f
+#         app['__templating__']= env
 
 
 def datetime_filter(t):

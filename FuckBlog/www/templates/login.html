@@ -23,6 +23,9 @@
     <!-- Custom Fonts -->
     <link href="/static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
+         <!--toastr CSS -->
+    <link rel="stylesheet" href="/static/css/toastr.min.css">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -41,6 +44,8 @@
     <script src="/static/js/sb-admin-2.js"></script>
 
     <script src="/static/js/sha1.min.js"></script>
+
+    <script src="/static/js/toastr.js"></script>
 
 
 </head>
@@ -91,10 +96,36 @@
         </div>
     </div>
     <script>
+         toastr.options = {
+          "closeButton": true,
+          "debug": false,
+          "newestOnTop": false,
+          "progressBar": true,
+          "positionClass": "toast-top-center",
+          "preventDuplicates": false,
+          "onclick": null,
+          "showDuration": "300",
+          "hideDuration": "1000",
+          "timeOut": "3000",
+          "extendedTimeOut": "1000",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
+        };
         $('#warning-block').hide();
+
         function get(id) {
             return document.getElementById(id);
         }
+        $('#password').keypress(function(e) {
+            var s = String.fromCharCode( e.which );
+            if ( s.toUpperCase() === s && s.toLowerCase() !== s && !e.shiftKey ) {
+{#        alert('caps is on');#}
+            get('password-notice').innerHTML=' 大写按钮已经打开 ';
+            get('password-notice').style.color='red';
+             }
+            });
         function check_email() {
             var email = get('email').value;
             if (email == "") {
@@ -122,13 +153,14 @@
 
             }
         function post_login(){
+
             if (check_email() && check_pwd()){
                     var new_email=(get('email').value).trim().toLowerCase();
                     var new_password=CryptoJS.SHA1(new_email+':'+(get('password').value)).toString();
                     var data={email:new_email,
                         password:new_password
                     };
-                    console.log(data);
+{#                    console.log(data)#}
                     $.ajax({
                         method: 'post',
                         url: '/api/authenticate',
@@ -136,18 +168,32 @@
                         // 用户名和密码
                         data: data,
                         success: function(resp){
+{#                            console.log(resp);#}
                             if (JSON.parse(resp)["email"]) {
 {#                                alert('登陆成功');#}
 {#                                这里好奇怪用location.assign 跳转不了 我他妈也是日了狗#}
+                                toastr["success"]("登陆成功");
                                 window.location="/manage"
                             }
                             else {
                                 var error_message=JSON.parse(resp)["message"];
                                 var p=document.createElement('p');
                                 var list=get('warning-block');
+                                var check=get('warning-message');
                                 p.id='warning-message';
-                                p.innerHTML=error_message;
-                                list.appendChild(p);
+{#                                console.log(check.innerHTML);#}
+{#                                console.log(error_message);#}
+                                console.log(typeof(check));
+                                if (!check){
+                                    p.innerHTML=error_message;
+                                    list.appendChild(p);
+                                }
+                                else if (check.innerHTML!=error_message){
+                                    check.innerHTML=error_message
+                                }
+
+{#                                p.innerHTML=error_message;#}
+
 {#                                这里注意：这能创建然后插入 不可以修改#}
 {#                                var p=get('warning-message').innerHTML;#}
 {#                                console.log(p);#}

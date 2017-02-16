@@ -62,9 +62,9 @@ def destroy_pool():
         __pool.close()
         yield from __pool.wait_closed()
 
-# 我很好奇为啥不用commit 事务不用提交么
+# 注意 他在excute 进行commit 可能是为了保险
 @asyncio.coroutine
-def select(sql, args, size=None):
+def select(sql, args=None, size=None):
     log(sql,args)
     global __pool
     # 666 建立游标
@@ -72,7 +72,10 @@ def select(sql, args, size=None):
     # yield from从连接池中返回一个连接
     with (yield from __pool) as conn:
         cur = yield from conn.cursor(aiomysql.DictCursor)
-        yield from cur.execute(sql.replace('?', '%s'), args)# 将Python %s 占位符替换为sql语言的
+        if args:
+            yield from cur.execute(sql.replace('?', '%s'), args)# 将Python %s 占位符替换为sql语言的
+        else:
+            yield from cur.execute(sql)
         if size:
             rs = yield from cur.fetchmany(size)# 获取指定行数
         else:
@@ -87,7 +90,7 @@ def select(sql, args, size=None):
 # 返回操作影响的行号
 
 @asyncio.coroutine
-def execute(sql,args, autocommit=True):
+def execute(sql,args=None, autocommit=True):
     log(sql)
     global __pool
     with (yield from __pool) as conn:
@@ -95,7 +98,10 @@ def execute(sql,args, autocommit=True):
             # 因为execute类型sql操作返回结果只有行号，不需要dict
             cur = yield from conn.cursor()
             # 顺便说一下 后面的args 别掉了 掉了是无论如何都插入不了数据的
-            yield from cur.execute(sql.replace('?', '%s'), args)
+            if args:
+                yield from cur.execute(sql.replace('?', '%s'), args)
+            else:
+                yield from cur.execute(sql)
             yield from conn.commit()
             affected_line=cur.rowcount
             yield from cur.close()

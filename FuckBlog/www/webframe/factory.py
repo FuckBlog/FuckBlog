@@ -51,7 +51,7 @@ def data_factory(app, handler):
             # 注意 这里如果有str的话 那么startswith 就会高亮
 
             content_type = str(request.content_type.lower())
-            print(content_type)
+            # print(content_type)
             if content_type.startswith('application/json'):
                 request.__data__= yield from request.json()
                 if not isinstance(request.__data__, dict):
@@ -85,7 +85,7 @@ def response_factory(app, handler):
         r = yield from handler(request)
         if isinstance(r, web.StreamResponse):
             return r
-        if isinstance(r,bytes):
+        if isinstance(r, bytes):
             resp=web.Response(body=r)
             resp.content_type = 'application/octet-stream'
             return resp
@@ -127,16 +127,21 @@ def auth_factory(app, handler):
     @asyncio.coroutine
     def auth(request):
             # 警告 这里request method 可能需要加__method__
-            logging.info('check user: %s:%s'% (request.method, request.path))
+            logging.info('check user: %s:%s' % (request.method, request.path))
             request.__user__=None
+            # 注意：这里是对COOKIE_NAME的cookie进行验证，而非我们的FakeCookie
             cookie_str=request.cookies.get(COOKIE_NAME)
-            print(cookie_str)
+            # print(cookie_str)
             if cookie_str:
+                # 注意： 这里的auth工厂将cookie 信息 经过查询 映射到request.__user__上面
                 user=yield from cookie2user(cookie_str)
                 if user is not None:
                     logging.info('set current user:%s' %user)
                     request.__user__=user
-            return (yield from  handler(request))
+            if request.path.startswith('/manage') and(request.__user__ is None or not
+                                                       request.__user__.admin_flag):
+                return web.HTTPFound('/login')
+            return (yield from handler(request))
     return auth
 
 
