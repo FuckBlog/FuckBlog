@@ -16,12 +16,14 @@ import asyncio, json, os, time
 from datetime import datetime
 from aiohttp import web
 # 首要解决的就是这个parse函数自解析
-from www.webframe.factory import logger_factory,data_factory,response_factory, auth_factory
+from www.webframe.factory import logger_factory,data_factory, response_factory, auth_factory
 import www.webframe.orm
 from www.base import add_routes, add_static
 from jinja2 import Environment, FileSystemLoader
+from www.login_data_transfer import datetime_filter
 
-# 注意：这里jinjia的模板做了一个渲染映射 那么我
+# 注意：这里jinjia的模板做了一个渲染映射 那么我很想重新写一个 感觉不复杂 主要是我用到的不复杂
+# 让我想想 我只需要一个html 渲染 和 html 路径映射的什么
 def init_jinjia2(app, **kw):
     logging.info('init jinja2 template...')
     options=dict(
@@ -59,18 +61,18 @@ def init_jinjia2(app, **kw):
 #         app['__templating__']= env
 
 
-def datetime_filter(t):
-    delta = int(time.time() - t)
-    if delta < 60:
-        return u'1分钟前'
-    if delta < 3600:
-        return u'%s分钟前' % (delta // 60)
-    if delta < 86400:
-        return u'%s小时前' % (delta // 3600)
-    if delta < 604800:
-        return u'%s天前' % (delta // 86400)
-    dt = datetime.fromtimestamp(t)
-    return u'%s年%s月%s日' % (dt.year, dt.month, dt.day)
+# def datetime_filter(t):
+#     delta = int(time.time() - t)
+#     if delta < 60:
+#         return u'1分钟前'
+#     if delta < 3600:
+#         return u'%s分钟前' % (delta // 60)
+#     if delta < 86400:
+#         return u'%s小时前' % (delta // 3600)
+#     if delta < 604800:
+#         return u'%s天前' % (delta // 86400)
+#     dt = datetime.fromtimestamp(t)
+#     return u'%s年%s月%s日' % (dt.year, dt.month, dt.day)
 
 
 @asyncio.coroutine

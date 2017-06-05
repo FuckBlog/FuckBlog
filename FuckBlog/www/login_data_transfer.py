@@ -30,6 +30,7 @@ import time
 from www.models import User
 import logging
 from www.errors import APIError,APIPermissionError,APIValueError
+from datetime import datetime
 COOKIE_NAME = 'FuckYou'
 _COOKIE_KEY = configs.session.secret
 
@@ -92,6 +93,23 @@ def text2html(text):
                 filter(lambda s: s.strip() != '', text.split('\n')))
     # 我需要换行 来支持我的评论md 功能 原先设计就是一傻逼
     return '\n'.join(lines)
+# 注意 传入一个字符串 然后替换其中的某些关键字符
+def safe_str(str):
+    return str.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
 
+
+
+def datetime_filter(t):
+    delta = int(time.time() - t)
+    if delta < 60:
+        return u'1分钟前'
+    if delta < 3600:
+        return u'%s分钟前' % (delta // 60)
+    if delta < 86400:
+        return u'%s小时前' % (delta // 3600)
+    if delta < 604800:
+        return u'%s天前' % (delta // 86400)
+    dt = datetime.fromtimestamp(t)
+    return u'%s年%s月%s日' % (dt.year, dt.month, dt.day)
 
 

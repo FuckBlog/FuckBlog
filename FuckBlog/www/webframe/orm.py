@@ -82,6 +82,7 @@ def select(sql, args=None, size=None):
             rs = yield from cur.fetchall()
         yield from cur.close()
         logging.info('rows have returned %s' %len(rs))
+        logging.info(sql)
     return rs
 
 

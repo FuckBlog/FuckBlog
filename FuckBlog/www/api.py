@@ -33,26 +33,14 @@ from www.errors import APIError, APIValueError
 import hashlib
 from aiohttp import  web
 from www.config import configs
-from www.login_data_transfer import user2cookie, text2html, check_user_admin_flag, get_page_index
+from www.login_data_transfer import user2cookie, text2html, check_user_admin_flag, get_page_index, safe_str
 import base64
 import www.markdown2
 import logging
+from www.login_data_transfer import datetime_filter
 COOKIE_NAME = 'FuckYou'
 _COOKIE_KEY = configs.session.secret
 # 这个逼屌丝直接设置取值哈哈哈 我很好奇她咋绕过数据库
-@get('/')
-def index():
-    summary = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-    # 这里是先伪造数据
-    blogs = [
-        Blogs(id='1', name='Test Blog', summary=summary, created_at=time.time()-120),
-        Blogs(id='2', name='Something New', summary=summary, created_at=time.time()-3600),
-        Blogs(id='3', name='Learn Swift', summary=summary, created_at=time.time()-7200)
-    ]
-    return {
-        '__template__': 'blogs.html',
-        'blogs': blogs,
-    }
 @asyncio.coroutine
 @get('/index.html')
 def index_test():
@@ -60,6 +48,13 @@ def index_test():
     return {
         '__template__':'index.html'
     }
+
+@get('/')
+def index():
+    return {
+        '__template__':'index.html'
+    }
+
 @get('/test.html')
 def test():
     return {
@@ -68,9 +63,16 @@ def test():
 
 @get('/manage/{name}')
 def admin_page(name):
-    return {
-        "__template__":name
-    }
+# 我发现一旦请求非html 的就会报错 那么我需要限定html 文件访问
+    if '.html' in str(name):
+        return {
+            "__template__":name
+        }
+
+    else:
+        return {
+            "__template__":'index_test.html'
+        }
 @asyncio.coroutine
 @get('/api/users')
 def api_get_users(request):
@@ -253,8 +255,8 @@ def api_create_blog(request,* ,blog_title, summary, content):
     yield from blog.save()
     return blog
 # 评论发布API
-def api_create_comment(request):
-    return
+# def api_create_comment(request):
+#     return
 # 按page 或者 分类目录  请求API
 @get('/api/blogs')
 def api_blogs(*, page='1', tag='%'):
@@ -276,7 +278,29 @@ def api_blogs(*, page='1', tag='%'):
         return dict(page=p, blogs=())
     return dict(page=p, blogs=blogs)
 
+# 获取博客所有文章
+@get('/api/all_blogs')
+def get_allblogs():
+    blogs=yield from Blogs.find_all(OrderBy='created_at desc')
+    return dict(data=blogs)
 
+# 获取博客所有评论
+@asyncio.coroutine
+@get('/api/all_comt')
+def get_allcomt():
+    comts=yield from Comment.find_all(OrderBy='created_at desc')
+    if comts:
+        for comt in comts:
+            comt.content=safe_str(comt.content)
+            find_blog=yield from Blogs.find(comt.blog_id)
+            comt['blog_title']=find_blog.blog_title
+            comt.created_time=datetime_filter(comt.created_time)
+    else:
+        return dict(data='')
+
+    return dict(data=comts)
+
+# 根据tag 来选择文章
 @get('/api/tags')
 def get_all_tags():
     from www.webframe import orm
@@ -285,6 +309,8 @@ def get_all_tags():
     tag=yield from orm.select('select distinct(tag) from blogs')
     return dict(tags=tag)
 
+
+# 用户新建评论的API
 @post('/api/blogs/{id}/comment')
 @asyncio.coroutine
 def post_comment(id, request, *, content):

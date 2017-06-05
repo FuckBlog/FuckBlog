@@ -116,7 +116,7 @@ $(function fuckinit() {
                             '<div class="comt-author pull-left">欢迎 '+'<code>'+user_name.replace('<', '&lt;').replace('>', '&gt;')+'</code>'+ ' 进行评论'+'	</div>'+
                             '</div>'+
                             '<div class="comt-box">'+
-                            '<textarea placeholder="写点什么..." class="input-block-level comt-area" name="comment" id="comment" cols="89%" rows="5" tabindex="1" onkeydown="if(event.ctrlKey&amp;&amp;event.keyCode==13){document.getElementById("submit").click();return false};"></textarea>'+
+                            '<textarea placeholder="评论支持markdown语法，写点什么吧..." class="input-block-level comt-area" name="comment" id="comment" cols="89%" rows="5" tabindex="1" onkeydown="if(event.ctrlKey&amp;&amp;event.keyCode==13){document.getElementById("submit").click();return false};"></textarea>'+
                         '</div>'+
                             '<div class="comt-ctrl">'+
                             '<button class="newbtn btn-primary" onclick="post_comment()" type="submit" name="submit" id="submit" tabindex="5"><i class="fa fa-check-square-o"></i> 提交评论</button>'+
