@@ -1,0 +1,145 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+*, *:before, *:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+		body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td,hr,button,article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{
+    margin: 0;
+    padding: 0;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+    display: block;
+}
+
+audio, canvas, video {
+    display: inline-block;
+}
+
+img {
+    border: none;
+    vertical-align: middle;
+}
+
+ul, ol {
+    /*list-style: none;*/
+}
+
+.clear {
+    *zoom: 1;           /* for IE 6/7 */
+}
+
+.clear:before, .clear:after {
+    height: 0; 
+    content: "";
+    font-size: 0;
+    display: table;
+    line-height: 0;     /* for Opera */
+    visibility: hidden;
+}
+
+.clear:after {
+    clear: both;
+}
+
+body {
+    font-size: 14px;
+    color: #666;
+    font-family: "Microsoft YaHei", "微软雅黑", Helvetica, Tahoma, STXihei, "华文细黑", STHeiti, "Helvetica Neue", Helvetica, Tahoma, "Droid Sans", "wenquanyi micro hei", FreeSans, Arimo, Arial, SimSun, "宋体", Heiti, "黑体", sans-serif; 
+    background: #fff;
+    text-align: center;
+}
+
+#layout {
+    text-align: left;
+}
+
+#layout > header, .btns {
+    padding: 15px 0;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.btns {
+    padding-top: 0;
+}
+
+.btns button {
+    padding: 2px 8px;
+}
+
+#layout > header > h1 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.btns button, .btn {
+    padding: 8px 10px;
+    background: #fff;
+    border: 1px solid #ddd;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    cursor: pointer;
+    -webkit-transition: background 300ms ease-out;
+    transition: background 300ms ease-out;
+}
+
+.btns button:hover, .btn:hover {
+    background: #f6f6f6;
+}
+
+#fuck_title{
+            padding: 3px 8px;
+            font-size: 1.7em;
+            line-height: 100%;
+            height: 1.7em;
+            width: 100%;
+            outline: 0;
+            margin: 0 0 3px;
+            background-color: #fff;
+}
+#hide_title_note{
+    color: #72777c;
+    position: absolute;
+    /* font-size: 1.7em; */
+    padding: 11px 10px;
+}
+
+select {
+    width: 200px;
+    /*注意在下拉框中，width是包括border的宽度的*/
+
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid #a9a9a9;
+    background-color: white;
+    background-repeat: no-repeat;
+    /*背景图像的尺寸：第一个值为宽度，第二值为高度*/
+
+    background-size: 8px 8px, 8px 8px, 30px 30px, 1px 30px;
+    /*背景图片：多张图片用","分割*/
+    /*repeating-linear-gradient() 函数用于重复线性渐变：参数分别为角度，颜色1，颜色2,...*/
+
+    background-image: repeating-linear-gradient(225deg, rgb(105, 123, 149) 0%, rgb(105, 123, 149) 50%, transparent 50%, transparent 100%),
+    /*组合成三角形图标*/
+
+    repeating-linear-gradient(135deg, rgb(105, 123, 149) 0%, rgb(105, 123, 149) 50%, transparent 50%, transparent 100%),
+    /*组合成三角形图标*/
+
+    linear-gradient(#FFFFFF 0%, #F8F9Fd, #EFFAFA 100%),
+    /*竖分割线右侧的背景色*/
+
+    repeating-linear-gradient( rgb(191, 204, 220) 0%, rgb(191, 204, 220) 100%);
+    /*竖分割线*/
+    /*背景图片的位置：第一个参数为水平位置，第二参数为垂直位置*/
+
+    background-position: 175px 10px, 183px 10px, right top, 167px top;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+}

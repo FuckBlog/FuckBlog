@@ -242,7 +242,7 @@ def api_get_blog(*, id):
 
 # 文章发布API
 @post('/api/blogs')
-def api_create_blog(request,* ,blog_title, summary, content):
+def api_create_blog(request,* ,blog_title, blog_tag, summary, content):
     check_user_admin_flag(request)
     if not blog_title or not blog_title.strip():
         raise APIValueError('blog_title','blog_title can not be empty')
@@ -250,10 +250,16 @@ def api_create_blog(request,* ,blog_title, summary, content):
         raise APIValueError('summary','summary can not be empty')
     if not content or not content.strip():
         raise APIValueError('content','content can not be empty')
+    if not blog_tag or not blog_tag.strip():
+        blog_tag='默认分类'
     # 注意 这里请求了request 的user 等信息 实际上是因为在上面进行了确认
-    blog = Blogs(user_id=request.__user__.id, user_name=request.__user__.name,user_image=request.__user__.image, blog_title=blog_title.strip(), summary=summary.strip(), content=content.strip())
+    blog = Blogs(user_id=request.__user__.id, user_name=request.__user__.name,user_image=request.__user__.image, blog_title=blog_title.strip(), summary=summary.strip(), content=content.strip(), tag=blog_tag)
     yield from blog.save()
-    return blog
+    # 现在需要新增一个 保存后返回文章链接的功能
+    blogs = yield from Blogs.find_all(OrderBy='created_at desc')
+    recent_blog=blogs[-1]
+    blog_url='/index.html?item='+recent_blog['id']
+    return {'new_url':blog_url}
 # 评论发布API
 # def api_create_comment(request):
 #     return
@@ -263,7 +269,7 @@ def api_blogs(*, page='1', tag='%'):
     # 注意 一般传输过程中 需要将str 的字符串改为int
     page_index=get_page_index(page)
     if tag != '%':
-        blogs = yield from Blogs.find_all('tag like ?', [tag])
+        blogs = yield from Blogs.find_all('tag like ?', [tag],OrderBy='created_at desc')
         if blogs:
             article_nums=len(blogs)
         else:
