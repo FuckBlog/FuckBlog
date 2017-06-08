@@ -23,11 +23,11 @@ code is far away from bugs with the god Animal protecting
                   
 -------------------------------------------------------------------------------
 """
-from config import configs
+from www.config import configs
 import asyncio, logging, json
 from aiohttp import web
 from urllib import parse
-from login_data_transfer import cookie2user
+from www.login_data_transfer import cookie2user
 # 老子就是爱用coroutine装饰 你咬我啊
 
 COOKIE_NAME = 'FuckYou'
