@@ -279,8 +279,8 @@ class Model(dict,metaclass=ModelMetaclass):
             sql.append(where)
         if args is None:
             args = []
-
-        orderBy = kw.get('orderBy', None)
+        # 注意 这里的orderby 是要区分大小写！！！ 大家混合编程千万要注意。。。 别问我怎么知道的
+        orderBy = kw.get('OrderBy', None)
         if orderBy:
             sql.append('order by')
             sql.append(orderBy)
@@ -298,7 +298,8 @@ class Model(dict,metaclass=ModelMetaclass):
                 raise ValueError('Invalid limit value : %s '%str(limit))
 
         rs = yield from select(' '.join(sql),args)
-        print(rs)
+        # 这里看一下拼接的语句
+        # print(rs)
         return [cls(**r) for r in rs]
 
     @classmethod

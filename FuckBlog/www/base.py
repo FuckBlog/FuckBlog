@@ -41,7 +41,7 @@ import inspect
 import functools
 # 利用工厂模式，生成GET POST 等方法请求装饰器
 from aiohttp import web
-from www.errors import APIError
+from errors import APIError
 
 def request(path, *, method):
     def decorator(func):

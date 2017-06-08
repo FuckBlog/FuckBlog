@@ -23,13 +23,13 @@ code is far away from bugs with the god Animal protecting
                   
 -------------------------------------------------------------------------------
 """
-from www.config import configs
+from config import configs
 import hashlib
 import asyncio
 import time
-from www.models import User
+from models import User
 import logging
-from www.errors import APIError,APIPermissionError,APIValueError
+from errors import APIError,APIPermissionError,APIValueError
 from datetime import datetime
 COOKIE_NAME = 'FuckYou'
 _COOKIE_KEY = configs.session.secret

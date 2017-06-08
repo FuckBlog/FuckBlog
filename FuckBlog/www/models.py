@@ -24,7 +24,7 @@ code is far away from bugs with the god animal protecting
 -------------------------------------------------------------------------------
 """
 
-from www.webframe.orm import Model, TextField, BooleanField, IntegerField, FloatField, StringField
+from webframe.orm import Model, TextField, BooleanField, IntegerField, FloatField, StringField
 
 import time, uuid, random
 

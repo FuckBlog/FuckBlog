@@ -24,20 +24,20 @@ code is far away from bugs with the god animal protecting
 -------------------------------------------------------------------------------
 """
 import asyncio
-from www.models import User, Comment, Blogs, next_id
-from www.base import get, post
-from www.base import Page
+from models import User, Comment, Blogs, next_id
+from base import get, post
+from base import Page
 import time
 import re,json
-from www.errors import APIError, APIValueError
+from errors import APIError, APIValueError
 import hashlib
 from aiohttp import  web
-from www.config import configs
-from www.login_data_transfer import user2cookie, text2html, check_user_admin_flag, get_page_index, safe_str
+from config import configs
+from login_data_transfer import user2cookie, text2html, check_user_admin_flag, get_page_index, safe_str
 import base64
-import www.markdown2
+import markdown2
 import logging
-from www.login_data_transfer import datetime_filter
+from login_data_transfer import datetime_filter
 COOKIE_NAME = 'FuckYou'
 _COOKIE_KEY = configs.session.secret
 # 这个逼屌丝直接设置取值哈哈哈 我很好奇她咋绕过数据库
@@ -194,7 +194,7 @@ def signout(request):
 #     comments = yield from Comment.find_all('blog_id=?', [id], orderBy='created_time desc')
 #     for c in comments:
 #         c.html_content = text2html(c)
-#     blog.html_content = www.markdown2.markdown(blog.content)
+#     blog.html_content = markdown2.markdown(blog.content)
 #     return {
 #         '__template__':'article_test.html',
 #         'blog':blog,
@@ -220,7 +220,8 @@ def manage_create_blog():
 @get('/api/blogs/{id}')
 def api_get_blog(*, id):
     blog = yield from Blogs.find(id)
-    comments = yield from Comment.find_all('blog_id=?', [id], orderBy='created_time desc')
+    comments = yield from Comment.find_all('blog_id=?', [id])
+    # comments = yield from Comment.find_all('blog_id=?', [id], orderBy='created_time desc')
     if comments:
         for c in comments:
             # 这里说明一下原来是str 转html  我改成text2md 如果确认没有xss 情况我换转回来
@@ -228,9 +229,9 @@ def api_get_blog(*, id):
             # 但是此时我又想 如果评论中代码需要有如<script 该如何是好？ 我发现转译后 还不错具体可以看text2html的代码
             # c.html_content = text2html(c['content'])
             fuck_xss=text2html(c['content'])
-            c.html_content=www.markdown2.markdown(fuck_xss)
+            c.html_content=markdown2.markdown(fuck_xss)
     if hasattr(blog,'content'):
-        blog.html_content = www.markdown2.markdown(blog.content)
+        blog.html_content = markdown2.markdown(blog.content)
     else:
         blog=dict()
         blog['html_content']='<h1>404 not found</h1>'
@@ -256,8 +257,8 @@ def api_create_blog(request,* ,blog_title, blog_tag, summary, content):
     blog = Blogs(user_id=request.__user__.id, user_name=request.__user__.name,user_image=request.__user__.image, blog_title=blog_title.strip(), summary=summary.strip(), content=content.strip(), tag=blog_tag)
     yield from blog.save()
     # 现在需要新增一个 保存后返回文章链接的功能
-    blogs = yield from Blogs.find_all(OrderBy='created_at desc')
-    recent_blog=blogs[-1]
+    blogs = yield from Blogs.find_all(OrderBy='created_time desc')
+    recent_blog=blogs[0]
     blog_url='/index.html?item='+recent_blog['id']
     return {'new_url':blog_url}
 # 评论发布API
@@ -269,7 +270,7 @@ def api_blogs(*, page='1', tag='%'):
     # 注意 一般传输过程中 需要将str 的字符串改为int
     page_index=get_page_index(page)
     if tag != '%':
-        blogs = yield from Blogs.find_all('tag like ?', [tag],OrderBy='created_at desc')
+        blogs = yield from Blogs.find_all('tag like ?', [tag],OrderBy='created_time desc')
         if blogs:
             article_nums=len(blogs)
         else:
@@ -277,7 +278,7 @@ def api_blogs(*, page='1', tag='%'):
     else:
         article_nums=yield from Blogs.findNumber('count(id)')
         p = Page(article_count=article_nums, index=page_index)
-        blogs = yield from Blogs.find_all(OrderBy='created_at desc', limit=(p.offset, p.limit))
+        blogs = yield from Blogs.find_all(OrderBy='created_time desc', limit=(p.offset, p.limit))
 
     p = Page(article_count=article_nums, index=page_index)
     if article_nums==0:
@@ -287,14 +288,16 @@ def api_blogs(*, page='1', tag='%'):
 # 获取博客所有文章
 @get('/api/all_blogs')
 def get_allblogs():
-    blogs=yield from Blogs.find_all(OrderBy='created_at desc')
+    # from webframe import orm
+    # blogs=orm.select('select * from blogs order by created_time desc')
+    blogs = yield from Blogs.find_all(OrderBy='created_time desc')
     return dict(data=blogs)
 
 # 获取博客所有评论
 @asyncio.coroutine
 @get('/api/all_comt')
 def get_allcomt():
-    comts=yield from Comment.find_all(OrderBy='created_at desc')
+    comts=yield from Comment.find_all(OrderBy='created_time desc')
     if comts:
         for comt in comts:
             comt.content=safe_str(comt.content)
@@ -309,7 +312,7 @@ def get_allcomt():
 # 根据tag 来选择文章
 @get('/api/tags')
 def get_all_tags():
-    from www.webframe import orm
+    from webframe import orm
     # 不好意思 我已经不想新增一个orm 我绕过orm 设置的args 限制 直接运行我的sql语句
     # 虽然有点不安全 比如有权限获得我的FTP 然后修改这句话 获取数据库的用户信息啥的
     tag=yield from orm.select('select distinct(tag) from blogs')

@@ -16,11 +16,11 @@ import asyncio, json, os, time
 from datetime import datetime
 from aiohttp import web
 # 首要解决的就是这个parse函数自解析
-from www.webframe.factory import logger_factory,data_factory, response_factory, auth_factory
-import www.webframe.orm
-from www.base import add_routes, add_static
+from webframe.factory import logger_factory,data_factory, response_factory, auth_factory
+import webframe.orm
+from base import add_routes, add_static
 from jinja2 import Environment, FileSystemLoader
-from www.login_data_transfer import datetime_filter
+from login_data_transfer import datetime_filter
 
 # 注意：这里jinjia的模板做了一个渲染映射 那么我很想重新写一个 感觉不复杂 主要是我用到的不复杂
 # 让我想想 我只需要一个html 渲染 和 html 路径映射的什么
@@ -77,7 +77,7 @@ def init_jinjia2(app, **kw):
 
 @asyncio.coroutine
 def fuck_init(loop):
-    yield from www.webframe.orm.create_pool(loop=loop,host='localhost', port=3308, user='sly', password='070801382',db='fuckblog')
+    yield from webframe.orm.create_pool(loop=loop,host='localhost', port=3308, user='sly', password='070801382',db='fuckblog')
     app = web.Application(loop=loop, middlewares=[
         logger_factory, response_factory, data_factory,auth_factory
     ])
