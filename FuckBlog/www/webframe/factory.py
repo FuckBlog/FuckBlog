@@ -28,6 +28,8 @@ from config.config import configs
 import asyncio, logging, json
 from aiohttp import web
 from urllib import parse
+import sys
+sys.path.append("..")
 from login_data_transfer import cookie2user
 
 # 老子就是爱用coroutine装饰 你咬我啊
