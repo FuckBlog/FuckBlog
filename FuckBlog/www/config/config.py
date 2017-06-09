@@ -24,7 +24,7 @@ code is far away from bugs with the god Animal protecting
 -------------------------------------------------------------------------------
 """
 
-import www.congfig_default
+import config.congfig_default
 # 下面新建一个字典方法用于让其指出a.b的特性
 # 对了我对于用py来存储dict 而不是ini文件也是很醉的
 # 注意 日后我需要你仿造wp 首先本地假设服务 然后输入数据库的配置信息写入config_default的设置
@@ -61,11 +61,11 @@ def to_Dict(d):
         # 注意 他需要将字典里的字典也要拥有该a.b的属性因此又扔进去了
         D[k]=to_Dict(v) if isinstance(v,dict) else v
     return D
-configs=www.congfig_default.configs
+configs=config.congfig_default.configs
 
 try:
-    import www.config_override
-    configs=_merge(configs, www.config_override.configs)
+    import config.config_override
+    configs=_merge(configs, config.config_override.configs)
 except:
     pass
 # 保证传递过来的dict全是拥有a.b特性的东西

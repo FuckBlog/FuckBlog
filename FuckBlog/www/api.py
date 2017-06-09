@@ -32,7 +32,7 @@ import re,json
 from errors import APIError, APIValueError
 import hashlib
 from aiohttp import  web
-from config import configs
+from config.config import configs
 from login_data_transfer import user2cookie, text2html, check_user_admin_flag, get_page_index, safe_str
 import base64
 import markdown2

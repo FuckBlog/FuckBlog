@@ -23,7 +23,7 @@ code is far away from bugs with the god Animal protecting
                   
 -------------------------------------------------------------------------------
 """
-from config import configs
+from config.config import configs
 import hashlib
 import asyncio
 import time
