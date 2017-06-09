@@ -76,7 +76,7 @@ def data_factory(app, handler):
         else:
             request.__data__ = dict()
         # 这里可能有问题
-        print(dir(request))
+        # print(dir(request))
         result = yield from handler(request)
         return result
      return parse_data
@@ -101,7 +101,7 @@ def response_factory(app, handler):
             resp.content_type='text/html;charset=utf-8'
             return resp
         if isinstance(r, dict):
-            print(r)
+            # print(r)
             template=r.get('__template__')
             if template is None:
                 # 这句话是为了渲染jinjia模板喵 没懂 回过头来看
