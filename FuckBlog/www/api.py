@@ -55,11 +55,6 @@ def index():
         '__template__':'index.html'
     }
 
-@get('/test.html')
-def test():
-    return {
-        '__template__':'test.html'
-    }
 
 @get('/manage/{name}')
 def admin_page(name):
@@ -207,13 +202,7 @@ def manage_admin():
         '__template__':'/index_test.html'
     }
 
-@get('/manage/blogs/create')
-def manage_create_blog():
-    return {
-        '__template__':'manage_blog_create.html',
-        'id':'',
-        'action':'/api/blogs'
-    }
+
 
 # 具体文章API 及其评论
 @asyncio.coroutine
